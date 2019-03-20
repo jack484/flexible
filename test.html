@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1,user-scalable=no"> -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  body {
+    height: 100vh;
+    background: #f2f4f7;
+  }
+
+  .skeleton {
+    color: #f4f4f4;
+    background: #f4f4f4;
+  }
+
+  .header {}
+
+  .header:after,
+  .header::before {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 0;
+    content: '';
+    bottom: 0;
+  }
+
+  .header .header-tab:before {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 0;
+    content: '';
+    left: 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .header:after {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .header::before {
+    border-top: 1px solid #ccc;
+  }
+
+  .header-top {
+    height: 1.2rem;
+    width: 100%;
+    background: #fff;
+    position: relative;
+  }
+
+  .user-avatar,
+  .user-info {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    margin: auto;
+    -webkit-transform: translate(0%, -50%);
+    -ms-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+  }
+
+  .user-avatar {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: #f4f4f4;
+    left: 0.2rem;
+  }
+
+  .header-top .user-info {
+    left: 1.36rem;
+  }
+
+  .header-top .user-info .nickname {
+    font-size: .28rem;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+  }
+
+  .header-top .user-info .desc {
+    font-size: 12px;
+    color: #999;
+    margin-top: 0.1rem;
+  }
+
+  @media (device-height:568px) and (-webkit-min-device-pixel-ratio:2) {
+
+    /* 兼容iphone5 */
+    .header-top .user-info .desc {
+      margin-top: 0;
+    }
+  }
+
+  .header-top .user-info .skeleton {
+    color: #f4f4f4;
+    background: #f4f4f4;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  .main div ul .groupIndex {
+    font-size: 12px;
+    color: #999;
+    margin-left: 0.35rem;
+  }
+
+  .main div ul>li {
+    list-style: none;
+    padding-top: 0.14rem;
+  }
+
+  .main div ul li:last-child {
+    padding-bottom: 0.14rem;
+  }
+
+  .main div ul li.specialist_dom {
+    display: none;
+  }
+
+  .header-tab {
+    width: 100%;
+    height: .88rem;
+    line-height: .88rem;
+    font-size: 14px;
+    background: #f2f4f7;
+    color: #999;
+    overflow: hidden;
+  }
+
+  .header-tab .tab-box {
+    display: flex;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .header-tab .tab-box .tab-item {
+    text-align: center;
+    flex: 1;
+  }
+
+  .header-tab .tab-box li.active {
+    color: #67a7fe;
+    position: relative;
+  }
+
+  .header-tab .tab-box li.active:after {
+    position: absolute;
+    width: 40px;
+    height: 0;
+    content: '';
+    top: 0.8rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border-radius: 3px;
+    border: 2px solid #67a7fe;
+  }
+
+  .main {
+    height: calc(100% - 2.12rem - 1.44rem);
+    overflow: hidden;
+  }
+
+  .main div.box-item {
+    width: 7.2rem;
+    box-sizing: border-box;
+    background: #fff;
+    margin: 0 auto;
+    padding-bottom: 0.28rem;
+  }
+
+  .main div.box-item .box-left,
+  .main div.box-item .box-right {
+    height: 1.36rem;
+    box-sizing: border-box;
+    background: #fff;
+  }
+
+  .main div.box-item .box-content {
+    width: 6.8rem;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .main div.box-item .box-left {
+    width: 5rem;
+    float: left;
+    padding-top: 0.24rem;
+  }
+
+  .main div.box-item .box-left .box-index {
+    width: 0.32rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    float: left;
+    margin-top: 0.06rem;
+    border-radius: 50%;
+    background-color: #67a7fe;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+  }
+
+  .main div.box-item .box-left .skeleton {
+    background-color: #f4f4f4;
+    color: #f4f4f4;
+  }
+
+  .main div.box-item .box-left .collage-name {
+    width: 4.4rem;
+    font-size: 0.36rem;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    padding-left: 0.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .main div.box-item .box-left .score-info {
+    padding-left: 0.5rem;
+    font-size: 12px;
+    margin-top: 0.20rem;
+  }
+
+  .main div.box-item .box-left .score-info .score {
+    color: #f54746;
+  }
+
+  .main div.box-item .box-left .score-info .skeleton {
+    color: #f4f4f4;
+  }
+
+  .main div.box-item .box-right {
+    float: right;
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .main div.box-item .box-right .select-type {
+    margin-top: 0.28rem;
+  }
+
+  .main div.box-item .box-right .select-type .select-true {
+    color: #67a7fe;
+  }
+
+  .main div.box-item .box-right .select-type .select-false {
+    color: #f54746;
+  }
+
+  .main div.box-item .box-right .select-type .skeleton {
+    color: #f4f4f4;
+    background: #f4f4f4;
+  }
+
+  .main div.box-item .box-right .aceess-rate {
+    margin-top: 11px;
+  }
+
+  .main div.box-item .box-right .aceess-rate .rate {
+    color: #67a7fe;
+  }
+
+  .main div.box-item .box-right .aceess-rate .skeleton {
+    color: #f4f4f4;
+    background: #f4f4f4;
+  }
+
+  .main div.box-item .box-major {
+    clear: both;
+    width: 6.8rem;
+    box-sizing: border-box;
+    margin: 0 auto;
+    background: #f2f4f7;
+    padding: 0.24px 0;
+    padding-left: 0.28px;
+  }
+
+  .main div.box-item .skeleton {
+    color: #f4f4f4;
+    background: #fff;
+  }
+
+  .main div.box-item .box-major span {
+    box-sizing: border-box;
+    display: inline;
+    width: 50%;
+    float: left;
+    padding: 0.2rem;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .main div.box-item .box-major span.skeleton {
+    color: #f4f4f4;
+    background: #f4f4f4;
+  }
+
+  .main div.box-item .box-major span:nth-child(2n+1) {
+    padding-left: 0.3rem;
+  }
+
+  .main div.box-item .box-major .clear {
+    clear: both;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.44rem;
+    background-color: rgba(0, 0, 0, .8);
+    color: #fff;
+  }
+
+  .footer .download {
+    display: -webkit-box;
+    /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box;
+    /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox;
+    /* 混合版本语法: IE 10 */
+    display: -webkit-flex;
+    /* 新版本语法: Chrome 21+ */
+    display: flex;
+    /* 新版本语法: Opera 12.1, Firefox 22+ */
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 7.2rem;
+    margin: 0 auto;
+    margin-top: 0.26rem;
+    justify-content: space-between;
+  }
+
+  .footer .download .logo {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .footer .download .logo img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .footer .download .info {
+    margin-left: 0.2rem;
+    font-size: 14px;
+  }
+
+  .footer .download .info p {
+    padding-top: 0.08rem;
+  }
+
+  .footer .download .down-btn {
+    width: 1.32rem;
+    height: 0.54rem;
+    line-height: 0.54rem;
+    border-radius: 2px;
+    padding: 0.04rem;
+    text-align: center;
+    background-color: #67a7fe;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  .footer .footer-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  /* 移动端一像素 */
+
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .border-1px::after {
+      transform: scaleY(0.5);
+      -webkit-transform: scaleY(0.5);
+    }
+
+    .border-1px::before {
+      transform: scaleY(0.5);
+      -webkit-transform: scaleY(0.5);
+    }
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio: 3) {
+    .border-1px::after {
+      transform: scaleY(0.33);
+      -webkit-transform: scaleY(0.33);
+    }
+
+    .border-1px::before {
+      transform: scaleY(0.33);
+      -webkit-transform: scaleY(0.33);
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+
+<body>
+  <div class="main">
+    <ul>
+      <li>
+        <div class="box-item">
+          <div class="box-content">
+            <div class="box-left">
+              <div class="box-index">1</div>
+              <div class="collage-name">北京大学北京大学北京大学北京大学北京大学北京大学</div>
+              <p class="score-info">2015年最低录取分<span class="score">666</span></p>
+            </div>
+            <div class="box-right">
+              <p class="select-type">
+                <span class="select-true">服从调剂</span>
+              </p>
+              <p class="aceess-rate">录取概率
+                <span class="rate">90%</span>
+              </p>
+            </div>
+          </div>
+          <div class="box-major">
+            <span>1.计算三点水机</span>
+            <span>1.计算机科学与技术</span>
+            <span>1.计算水电费第三方第三方机</span>
+            <span>1.计算水电费第三方第三方机</span>
+            <span>1.计算水电费第三方第三方机</span>
+            <span>1.计算水电费机</span>
+            <span>1.计算机</span>
+            <span>1.计地方算机</span>
+            <span>1.计地方算机</span>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+<script>
+  var designWidth = 750;
+  var maxWidth = 750;
+</script>
+<script src="./flexible.js"></script>
+
+</html>
